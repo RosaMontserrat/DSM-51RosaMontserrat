@@ -13,7 +13,32 @@ class Producto extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('Producto', function(Blueprint $table)
+    {
+       $table->BigIncrements ('id');
+       $table->String ('clave', 25);
+       $table->String ('producto', 200);
+       $table->unsignedBigInteger ('existencias');
+       $table->float('precio_unitario', 10, 2 );
+       $table->enum('unidad_medida',
+       [
+       'Pieza',
+       'Caja',
+       'Kilogramo',
+       'Metro',
+       'Bolsa',
+       'Otro'
+       ]
+    );
+    $table->enum('estatus',
+       [
+        'Activo',
+       'Inactivo'
+       ]
+    );
+    $table->timestamps();
+    }
+);
     }
 
     /**
@@ -23,6 +48,8 @@ class Producto extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('Producto');
     }
+
+
 }
